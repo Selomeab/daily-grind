@@ -26,6 +26,25 @@ let myDay = myDate.getDay();
 let today = "";
 let coffee = "";
 
+//use location object to access querystring (address bar)
+const queryString = window.location.search;
+    
+//output to console    
+console.log(queryString);
+    
+//separate query string parameters
+const urlParams = new URLSearchParams(queryString);
+
+if(urlParams.has("day")){//from querystring
+    myDay = urlParams.get("day");
+ }
+ 
+ myDay = parseInt(myDay);//must change to ineger for switch
+//myDay = 3;//Testing only 
+
+
+
+
 switch(myDay){
 
     case 0:
@@ -34,6 +53,15 @@ switch(myDay){
 
     case 1:
         today = "Monday";
+
+        coffee = {
+            name: "Pumpkin Spice",
+            pic: "images/pumpkin-spice-latte.jpg",
+            day: "Monday",
+            alt: "A pic of a Pumpkin Spice",
+            color: "orange",
+            desc:`One of our best sellers!`
+         };
     break;
 
     case 2:
@@ -70,10 +98,11 @@ switch(myDay){
         today = "Something went wrong";
 }
 
-alert(today);
+//alert(today);
 console.log(coffee);
 
 document.getElementById("coffee-cup").innerHTML = coffeeTemplate(coffee);
+document.querySelector("html").style.backgroundColor = coffee.color;
 function coffeeTemplate(coffee){
     let myReturn = `<img src="${coffee.pic}" alt="${coffee.alt}" id="coffee" />
            <strong class="feature">${coffee.day}'s Coffee Special:</strong> ${coffee.day}'s daily coffee special is <strong class="feature">${coffee.name}</strong>, ${coffee.desc}!</p>`;
